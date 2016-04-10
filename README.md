@@ -1,4 +1,4 @@
-threejs-starter-kit
+Hymnbox
 ===================
 
 It uses Three.js and Greensock as depencies.
