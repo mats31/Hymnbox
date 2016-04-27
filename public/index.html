@@ -20,8 +20,6 @@
       z-index: 1;
     }
     #layer{
-      background:#000000;
-      opacity:0;
       width:100%;
       height:100%;
       position:absolute;
@@ -32,17 +30,38 @@
       -o-transition: all 0.5s ease;
       -webkit-transition: all 0.5s ease;
     }
+    #layer .media {
+      left: 50%;
+      max-width: 76%;
+      position: absolute;
+      opacity: 0;
+      top: 50%;
+      transform: translate3d(-50%, -50%, 0);
+      transition: all 0.5s ease;
+      -moz-transition: all 0.5s ease;
+      -o-transition: all 0.5s ease;
+      -webkit-transition: all 0.5s ease;
+    }
+    #layer p {
+      position: absolute;
+      bottom: 0;
+      margin: 0;
+      padding: 1.8% 0;
+      text-align: center;
+      width: 100%;
+      color: white;
+    }
     #layer.active{
-      opacity:0.5;
       visibility: visible;
       z-index: 1;
+    }
+    #layer.active .media{
+      opacity: 1;
     }
   </style>
 </head>
 <body>
-  <div id="layer">
-    <img id="focusImg" src="" alt="">
-  </div>
+  <div id="layer"></div>
   <script src="./build/main.js"></script>
 </body>
 </html>

@@ -11,7 +11,7 @@ export default class Photo extends THREE.Object3D {
     this.context = this.canvas.getContext( '2d' );
     //document.body.appendChild( this.canvas );
     this.sprites = [];
-    const imgs = [
+    this.imgs = [
       'cousins.png',
       'filles.png',
       'julie.png',
@@ -31,22 +31,22 @@ export default class Photo extends THREE.Object3D {
 
     this.loader = new THREE.TextureLoader();
 
-    for ( let i = 0; i < imgs.length; i++ ) {
+    for ( let i = 0; i < this.imgs.length; i++ ) {
       const img = new Image();
       const that = this;
-      img.src = 'assets/img/' + imgs[i];
+      img.src = 'assets/img/' + this.imgs[i];
       // img.onload = () => {
       //   this.setPictureWithMask( img );
       // };
       img.onload = (function (currentImg) {
         return function() {
-          that.setPictureWithMask( currentImg );
+          that.setPictureWithMask( currentImg, i );
         }
       }(img));
     }
   }
 
-  setPictureWithMask( img ) {
+  setPictureWithMask( img, index ) {
     const mask = new Image(); // width = 1000 / height = 888
     const that = this;
     let maskWidth = 0;
@@ -88,7 +88,7 @@ export default class Photo extends THREE.Object3D {
         const customImg = new Image();
         customImg.src = that.canvas.toDataURL( 'image/png' ).replace( 'image/png', 'image/octet-stream' );
         customImg.onload = () => {
-          that.createSprite( customImg.src, img.src );
+          that.createSprite( customImg.src, img.src, index );
         };
       }
     }(img));
@@ -126,7 +126,7 @@ export default class Photo extends THREE.Object3D {
     // };
   }
 
-  createSprite( maskImg, nativeImg ) {
+  createSprite( maskImg, nativeImg, index ) {
     this.loader.load( maskImg, ( maskTexture ) => {
       this.loader.load( nativeImg, ( nativeTexture ) => {
         maskTexture.minFilter = THREE.LinearFilter;
@@ -150,16 +150,20 @@ export default class Photo extends THREE.Object3D {
           focus: 0, // custom uniform
           fog: false,
           transparent: false,
-          //rotation: Math.random() * 0.5 - 0.25,
+          rotation: Math.random() * 0.5 - 0.25,
         });
 
         const sprite = new THREE.Sprite( material );
+        sprite.nId = index;
+        sprite.customType = 'image';
+
         sprite.scale.set( 20, 20, 1.0 );
         sprite.position.set(
           Math.random() * 150 - 75,
           Math.random() * 150 - 75,
           Math.random() * 200 - 100
         );
+        // sprite.rotation.z = Math.random();
         // const geometry = new THREE.PlaneGeometry( 20, 20, 1 );
         // const planeMaterial = new THREE.MeshBasicMaterial({
         //   color: 0xffffff,
@@ -220,6 +224,10 @@ export default class Photo extends THREE.Object3D {
   }
 
   update() {
+    // console.log(this.sprites[0].material.time);
+    // for ( let i = 0; i < this.sprites.length; i++ ) {
+    //   this.sprites[i].material.rotation += ( ( Math.random() * 0.5 - 0.25 ) - this.sprites[i].material.rotation ) * 0.001;
+    // }
     // this.rotation.x += 0.01;
     // this.rotation.z += 0.01;
   }
