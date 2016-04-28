@@ -65,6 +65,7 @@ export default class Video extends THREE.Object3D {
         const mesh = new THREE.Mesh( this.geometry, material );
         mesh.customType = 'video';
         mesh.focused = false;
+        mesh.nId = i;
         mesh.position.set(
           Math.random() * 150 - 75,
           Math.random() * 150 - 75,

@@ -165,7 +165,7 @@ export default class Webgl {
     this.blendPass2.params.aspectRatio2 = this.width / this.height;
     this.blendPass2.params.tInput2 = this.renderTarget2;
 
-    // Second blendpass for videos
+    // Third blendpass for videos
     this.blendPass3 = new BlendPass();
     this.blendPass3.params.mode = WAGNER.BlendMode.LinearDodge; // Lighten, LinearDodge, ColorDodge,
     this.blendPass3.params.resolution2.x = this.width;
@@ -290,10 +290,10 @@ export default class Webgl {
       this.focus = true;
       const layer = document.getElementById( 'layer' );
       const name = document.createElement( 'p' );
-      name.innerText = this.photo.imgs[object.nId];
       let media = {};
 
       if ( object.customType === 'image' ) {
+        name.innerText = this.photo.imgs[object.nId];
         media = new Image();
         media.className = 'media';
         this.resizeMediaFocus(media);
@@ -326,6 +326,7 @@ export default class Webgl {
       }
 
       if ( object.customType === 'video' ) {
+        name.innerText = this.video.videoDatas[object.nId].name;
         object.focused = true;
         media = object.material.uniforms.map.value.image;
         media.className = 'media';
@@ -336,6 +337,18 @@ export default class Webgl {
         object.material.uniforms.map.value.image.currentTime = 0;
         object.material.uniforms.map.value.image.muted = false;
         object.material.uniforms.map.value.image.play();
+        TweenMax.fromTo( // Display name video
+          name,
+          0.5,
+          {
+            opacity: 0,
+            y: -50,
+          },
+          {
+            opacity: 1,
+            y: 0,
+          }
+        );
         TweenMax.to( // Hide Mesh video
           object.material.uniforms.opacity,
           0.5,
@@ -450,6 +463,12 @@ export default class Webgl {
     this.blendPass2.params.resolution2.y = this.height;
     this.blendPass2.params.aspectRatio = this.width / this.height;
     this.blendPass2.params.aspectRatio2 = this.width / this.height;
+
+    // Third blendpass
+    this.blendPass3.params.resolution2.x = this.width;
+    this.blendPass3.params.resolution2.y = this.height;
+    this.blendPass3.params.aspectRatio = this.width / this.height;
+    this.blendPass3.params.aspectRatio2 = this.width / this.height;
 
     this.renderer.setSize( width, height );
   }
