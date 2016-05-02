@@ -187,6 +187,10 @@ export default class Photo extends THREE.Object3D {
         this.add(sprite);
         this.sprites.push(sprite);
 
+        if (index === this.imgs.length - 1) {
+          document.getElementById('loader').className = '';
+        }
+
         // const geometry = new THREE.CylinderGeometry( 5, 5, 1, 200 );
         // const material = new THREE.MeshBasicMaterial({
         //   //color: 0xffffff,
