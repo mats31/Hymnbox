@@ -86,13 +86,13 @@ export default class Webgl {
     this.point = new Point();
     this.scene.add( this.point );
 
-    this.photo = new Photo();
-    this.photo.position.set( 0, 0, 0 );
-    this.scene2.add( this.photo );
-
     this.video = new Video();
     this.video.position.set( 0, 0, 0 );
     this.scene4.add( this.video );
+
+    this.photo = new Photo();
+    this.photo.position.set( 0, 0, 0 );
+    this.scene2.add( this.photo );
 
     // this.smoke = new Smoke();
     // this.scene2.add( this.smoke );
