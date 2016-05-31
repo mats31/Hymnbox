@@ -4,6 +4,8 @@ Hymnbox
 It's a prototype used for realize our Gobelins final project of 2016.
 See the demo [here](http://mathis-biabiany.fr/hymnbox)
 
+The new version of the prototype will be available soon (around 20th june) :).
+
 It uses Three.js and Greensock as depencies.
 
 After cloning install all dependencies :
